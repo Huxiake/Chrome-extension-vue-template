@@ -1,0 +1,26 @@
+<template>
+    <el-card class="box-card">
+        <div
+          slot="header"
+          class="clearfix"
+        >
+          <span>卡片名称</span>
+          <el-button
+              style="float: right; padding: 3px 0"
+              type="text"
+          >操作按钮</el-button>
+        </div>
+    </el-card>
+</template>
+
+<script>
+export default {
+  name: 'App2',
+}
+</script>
+
+<style>
+.box-card {
+  width: 300px;
+}
+</style>

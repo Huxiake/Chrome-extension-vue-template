@@ -1,5 +1,5 @@
 const CopyWebpackPlugin = require("copy-webpack-plugin");
-const ZipPlugin = require('zip-webpack-plugin')
+// const ZipPlugin = require('zip-webpack-plugin')
 const path = require("path");
 
 // Generate pages object
@@ -61,6 +61,12 @@ module.exports = {
       filename: 'js/[name].js'
     },
     plugins: plugins,
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+        '@pop': path.resolve(__dirname, './src/popup')
+      }
+    }
   },
   css: {
     extract: {
