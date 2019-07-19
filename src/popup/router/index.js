@@ -7,24 +7,39 @@ import Layout from '@/popup/layout'
 const router = new Router({
   routes: [
     {
-      path: '/',
+      path: '/',  // 工作台
       component: Layout,
+      redirect: 'work/index',
       children: [
         {
-          path: 'dashboard',
-          name: 'dashboard',
-          component: () => import('@/popup/App/App1'),
+          path: 'work/index',  // 首页
+          name: 'work',
+          component: () => import('@/popup/App/work'),
+          meta: { title: 'Dashboard', icon: 'dashboard' }
         }
       ]
     },
 
     {
-      path: '/foo',
+      path: '/shop', // 店铺
       component: Layout,
       children: [
         {
-          path: 'next',
-          component: () => import('@/popup/App/App2'),
+          path: 'index',
+          component: () => import('@/popup/App/shop'),
+          meta: { title: 'Dashboard', icon: 'dashboard' }
+        }
+      ]
+    },
+
+    {
+      path: '/mine', // 我的
+      component: Layout,
+      children: [
+        {
+          path: 'index',
+          component: () => import('@/popup/App/mine'),
+          meta: { title: 'Dashboard', icon: 'dashboard' }
         }
       ]
     }

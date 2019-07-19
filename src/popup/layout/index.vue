@@ -1,7 +1,7 @@
 <template>
     <div class="app-wrapper">
         <div class="main-container">
-            <div class="fixed-header}">
+            <div class="fixed-header">
                 <navbar />
             </div>
             <app-main />
@@ -25,13 +25,16 @@ export default {
   @import "@/styles/mixin.scss";
 
     .app-wrapper {
-        // @include clearfix;
+        @include clearfix;
         position: relative;
         height: 100%;
         width: 100%;
-        &.mobile.openSidebar{
-        position: fixed;
-        top: 0;
+        padding: 0;
+        .main-container {
+            height: 300px;
+            min-height: 100%;
+            transition: margin-left .28s;
+            position: relative;
         }
     }
     .fixed-header {
