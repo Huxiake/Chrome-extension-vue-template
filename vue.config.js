@@ -55,7 +55,8 @@ module.exports = {
 
   configureWebpack: {
     entry: {
-      'content': './src/content/index.js'
+      'content': './src/content/index.js',
+      'vvicGetGoodsNum': './src/content/vvicGetGoodsNum.js'
     },
     output: {
       filename: 'js/[name].js'

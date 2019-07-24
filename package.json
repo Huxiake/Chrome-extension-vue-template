@@ -10,8 +10,9 @@
     "analyze": "npm run build --report"
   },
   "dependencies": {
+    "clipboard": "^2.0.4",
     "core-js": "^2.6.5",
-    "element-ui": "^2.8.2",
+    "element-ui": "^2.10.1",
     "vue": "^2.6.10",
     "vue-router": "^3.0.7"
   },
