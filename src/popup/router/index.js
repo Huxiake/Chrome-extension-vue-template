@@ -42,6 +42,11 @@ const router = new Router({
           meta: { title: 'Dashboard', icon: 'dashboard' }
         }
       ]
+    },
+    
+    {
+      path: '/login', // 登录
+      component: () => import('@/popup/App/login')
     }
   ]
 })

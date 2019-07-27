@@ -28,6 +28,8 @@ export default {
         activeMenu() {
             const route = this.$route
             const { meta, path } = route
+            if (path === '/login') path = '/mine/index'
+            console.log(path)
             return path
         }
     },

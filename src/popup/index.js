@@ -7,6 +7,8 @@ import '@/styles/index.scss' // global css
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import './permission' // permission control
+
 Vue.use(ElementUI, { size: 'small' })
 
 new Vue({
