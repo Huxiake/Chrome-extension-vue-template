@@ -21,7 +21,8 @@
             "css/content.css"
         ],
         "js": [
-            "js/vvicGetGoodsNum.js"
+            "js/vvicGetGoodsNum.js",
+            "js/vvicCollect.js"
         ],
         "run_at": "document_end"
     }],
