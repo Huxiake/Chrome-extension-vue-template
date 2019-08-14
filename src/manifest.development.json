@@ -18,7 +18,8 @@
             "*://*.vvic.com/item*"
         ],
         "css": [
-            "css/content.css"
+            "css/vvicGetGoodsNum.css",
+            "css/vvicCollect.css"
         ],
         "js": [
             "js/vvicGetGoodsNum.js",

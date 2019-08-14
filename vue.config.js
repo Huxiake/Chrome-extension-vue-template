@@ -55,7 +55,7 @@ module.exports = {
 
   configureWebpack: {
     entry: {
-      'content': './src/content/index.js',
+      // 'content': './src/content/index.js',
       'vvicGetGoodsNum': './src/content/vvicGetGoodsNum.js',
       'vvicCollect': './src/content/vvicCollect.js'
     },
@@ -72,7 +72,7 @@ module.exports = {
   },
   css: {
     extract: {
-      filename: 'css/[name].css'
+      filename: 'css/[name].css',
       // chunkFilename: 'css/[name].css'
     }
   },

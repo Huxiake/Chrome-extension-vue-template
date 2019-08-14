@@ -8,9 +8,7 @@ Vue.use(ElementUI, { size: 'small' })
 
 var app = document.createElement("div");
 app.setAttribute('id', 'app')
-document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > dl:nth-child(4) > dd:nth-child(1) > div.value.ff-arial').appendChild(app);
-
-console.log('zaizheli')
+document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > dl.summary.clearfix > dd:nth-child(1) > div.value.ff-arial').appendChild(app);
 
 new Vue({
     el: '#app',
@@ -21,53 +19,50 @@ new Vue({
 
 var MyComponent = Vue.extend({
     methods: {
-        copyGetGoodsInfo() {
-            const marketInfo = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fr.item-right.mt20 > div.shop-info > div > ul > li:nth-last-child(1) > div.text').innerHTML.replace(/<a\s[\s\S]*/g, '').trim()
-            const sectionNum = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > dl.summary > dd:nth-child(1) > div.value.ff-arial').innerHTML.trim()
-            const amount = document.querySelector('#j_iptAmount').value.trim()
-            
-            let size = document.querySelector('#j-buy > dd:nth-child(2) > div.value > ul > li.selectSize.selected')
-            let color = document.querySelector('#j-buy > dd:nth-child(3) > div.value > ul > li.selectColor.selected')
-            console.log(size)
-            console.log(color)
-            if (size === null || color === null) {
-                this.$message.error('请先选择sku信息')
-            } else {
-                size = size.getAttribute('data-size').trim()
-                color = color.getAttribute('data-color').trim()
-                var copy = document.querySelector('#copyInput') === null ? document.createElement('input') : document.querySelector('#copyInput')
-                copy.setAttribute('id', 'copyInput')
-                copy.setAttribute('style', 'color:#FFF;border:0px;')
-                copy.value = marketInfo + ' ' + sectionNum + ' ' + color + ' ' + size + ' * ' + amount
-                document.querySelector('body > div.footer3_wrap > div > div.secur').appendChild(copy);
-                copy.select();
-                document.execCommand("Copy")
-                this.$message.success('复制成功')
+        collectGoods() {
+            const imgArr = []
+            const colorArr = []
+            const sizeArr = []
+            let spuName = ''
+            let price = ''
+            let price_sale = ''
+            // let getGoodsNum = ''
+            // 获取图片
+            let rawImgArr = document.querySelectorAll('#thumblist > div.owl-stage-outer > div > div')
+            for (let i = 1, len = rawImgArr.length; i < len + 1 && i < 9; i++) {
+                console.log(i)
+                let img_item = document.querySelector('#thumblist > div.owl-stage-outer > div > div:nth-child(' + i + ') > div > a > img')
+                imgArr.push(img_item)
             }
-        },
-        copyShopInfo() {
-            const marketInfo = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fr.item-right.mt20 > div.shop-info > div > ul > li:nth-last-child(1) > div.text').innerHTML.replace(/<a\s[\s\S]*/g, '').trim()
-            const sectionNum = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > dl.summary > dd:nth-child(1) > div.value.ff-arial').innerHTML.trim()
+
+            // 获取标题、价格
+            spuName = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.d-name > strong').innerText
+            price = Number(document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div.v-price.d-p > div.p-value > span > strong.d-sale').innerText)
+            price_sale = '1' // 售价公式
+            console.log(spuName, price, price_sale)
+
+            // 获取color
+            let rawColorArr = document.querySelectorAll('#j-buy > dd:nth-child(3) > div.value > ul > li')
+            for (let i = 1, len = rawColorArr.length; i < len + 1; i++) {
+                console.log(i)
+                let color_item = document.querySelector('#j-buy > dd:nth-child(3) > div.value > ul > li:nth-child(' + i + ')').getAttribute('data-color').trim()
+                colorArr.push(color_item)
+            }
+            console.log(colorArr)
             
-            var copy = document.querySelector('#copyInput') === null ? document.createElement('input') : document.querySelector('#copyInput')
-            copy.setAttribute('id', 'copyInput')
-            copy.setAttribute('style', 'color:#FFF;border:0px;')
-            copy.value = marketInfo + ' ' + sectionNum
-            document.querySelector('body > div.footer3_wrap > div > div.secur').appendChild(copy);
-            copy.select();
-            document.execCommand("Copy")
-            this.$message.success('复制成功')
-            
-            chrome.storage.sync.get(['key'], function(result) {
-                console.log('result', result)
-                console.log('Value currently is ' + result.key);
-            })
+            // 获取size
+            let rawSizeArr = document.querySelectorAll('#j-buy > dd:nth-child(2) > div.value > ul > li')
+            for (let i = 1, len = rawSizeArr.length; i < len + 1; i++) {
+                console.log(i)
+                let size_item = document.querySelector('#j-buy > dd:nth-child(2) > div.value > ul > li:nth-child(' + i + ')').getAttribute('data-size').trim()
+                sizeArr.push(size_item)
+            }
+            console.log(sizeArr)
         }
     },
     template: `
     <div style="display:inline-block;position:relative;height:40px;width:80px;">
-        <el-button id="btn" type="warning" style="height:40px;width:35px;font-size:10px;padding:0" @click="copyGetGoodsInfo">复制<br>拿货</el-button>
-        <el-button id="btn" type="warning" style="height:40px;width:35px;margin-left:2px;padding:0" @click="copyShopInfo">复制<br>上货</el-button>
+        <el-button id="btn" type="primary" size="small" style="height:20px;width:35px;font-size:10px;padding:0" @click="collectGoods">采集</el-button>
     </div>
     `
 })
