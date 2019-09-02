@@ -30,21 +30,23 @@ var MyComponent = Vue.extend({
             // 获取图片
             let rawImgArr = document.querySelectorAll('#thumblist > div.owl-stage-outer > div > div')
             for (let i = 1, len = rawImgArr.length; i < len + 1 && i < 9; i++) {
-                console.log(i)
-                let img_item = document.querySelector('#thumblist > div.owl-stage-outer > div > div:nth-child(' + i + ') > div > a > img')
+                let img_item = document.querySelector('#thumblist > div.owl-stage-outer > div > div:nth-child(' + i + ') > div > a > img').getAttribute('src').replace('?x-oss-process=image/resize,mfit,h_60,w_60', '').replace('_60x60.jpg', '').replace('//', '')
                 imgArr.push(img_item)
             }
+            console.log(imgArr)
 
             // 获取标题、价格
             spuName = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.d-name > strong').innerText
-            price = Number(document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div.v-price.d-p > div.p-value > span > strong.d-sale').innerText)
+            var rawPrice = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div.v-price.d-p > div.p-value > span > strong.d-sale') === null ? document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div > div.p-value > strong.d-sale') : document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div.v-price.d-p > div.p-value > span > strong.d-sale')
+            price = rawPrice.innerText
+            // price = Number(document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div.v-price.d-p > div.p-value > span > strong.d-sale').innerText)
+            // console.log(document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div > div.p-value > strong.d-sale'))
             price_sale = '1' // 售价公式
             console.log(spuName, price, price_sale)
 
             // 获取color
             let rawColorArr = document.querySelectorAll('#j-buy > dd:nth-child(3) > div.value > ul > li')
             for (let i = 1, len = rawColorArr.length; i < len + 1; i++) {
-                console.log(i)
                 let color_item = document.querySelector('#j-buy > dd:nth-child(3) > div.value > ul > li:nth-child(' + i + ')').getAttribute('data-color').trim()
                 colorArr.push(color_item)
             }
@@ -53,7 +55,6 @@ var MyComponent = Vue.extend({
             // 获取size
             let rawSizeArr = document.querySelectorAll('#j-buy > dd:nth-child(2) > div.value > ul > li')
             for (let i = 1, len = rawSizeArr.length; i < len + 1; i++) {
-                console.log(i)
                 let size_item = document.querySelector('#j-buy > dd:nth-child(2) > div.value > ul > li:nth-child(' + i + ')').getAttribute('data-size').trim()
                 sizeArr.push(size_item)
             }
