@@ -45,13 +45,18 @@ var MyComponent = Vue.extend({
             }
         },
         copyShopInfo() {
-            const marketInfo = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fr.item-right.mt20 > div.shop-info > div > ul > li:nth-last-child(1) > div.text').innerHTML.replace(/<a\s[\s\S]*/g, '').trim()
+            const marketInfo = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fr.item-right.mt20 > div.shop-info > div > ul > li:nth-last-child(1) > div.text').innerHTML.replace(/<a\s[\s\S]*/g, '').replace('国润', 'A').replace('国马', 'B').replace('国投', 'C').replace('非凡', 'D').replace('柏美', 'E').replace('泓发', 'F').replace('宝华', 'G').replace('女人街', 'H').replace('国大', 'I').replace('大时代', 'J').replace('佰润', 'K').replace('三晟', 'L').replace('大西豪', 'M').replace('跨客城', 'N').replace('国泰', 'O').replace('新金马', 'P').replace('金富丽', 'Q').replace('天福居', 'T').replace('楼B区 ', '-B*').replace('楼C区 ', '-C*').replace('楼A区 ', '-A*').replace('楼E区 ', '-E*').replace('楼东侧 ', '-DC*').replace('楼 ', '*').trim()
             const sectionNum = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > dl.summary > dd:nth-child(1) > div.value.ff-arial').innerHTML.trim()
-            
+            var rawPrice = document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div.v-price.d-p > div.p-value > span > strong.d-sale') === null ? document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div > div.p-value > strong.d-sale') : document.querySelector('body > div.w.clearfix > div.item-content.clearfix > div.fl.item-left.mt20 > div.product-detail > div.price-time-buyer > div.v-price.d-p > div.p-value > span > strong.d-sale')
+            var price = rawPrice.innerText
+            if (price.indexOf(' - ') !== -1){
+                price = price.substring(0, price.indexOf(' - '))
+            }
+            price = price.replace('.00', '')
             var copy = document.querySelector('#copyInput') === null ? document.createElement('input') : document.querySelector('#copyInput')
             copy.setAttribute('id', 'copyInput')
             copy.setAttribute('style', 'color:#FFF;border:0px;')
-            copy.value = marketInfo + ' ' + sectionNum
+            copy.value = marketInfo + '##' + sectionNum + '*' + price
             document.querySelector('body > div.footer3_wrap > div > div.secur').appendChild(copy);
             copy.select();
             document.execCommand("Copy")
